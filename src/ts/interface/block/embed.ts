@@ -12,6 +12,8 @@ export enum EmbedProcessor {
 	Figma 	 	 = 8,
 
 	Twitter		 = 9,
+
+	Bilibili 	 = 10,
 };
 
 export interface ContentEmbed {

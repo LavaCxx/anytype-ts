@@ -64,6 +64,7 @@ class UtilMenu {
 			{ id: I.EmbedProcessor.Soundcloud, icon: 'soundcloud', name: 'Soundcloud' },
 			{ id: I.EmbedProcessor.GoogleMaps, icon: 'googleMaps', name: 'Google maps' },
 			{ id: I.EmbedProcessor.Miro, icon: 'miro', name: 'Miro' },
+			{ id: I.EmbedProcessor.Bilibili, icon: 'miro', name: 'Bilibili' }
 		];
 
 		if (config.experimental) {
@@ -71,6 +72,8 @@ class UtilMenu {
 				{ id: I.EmbedProcessor.Figma, icon: 'figma', name: 'Figma' },
 
 				{ id: I.EmbedProcessor.Twitter, icon: 'twitter', name: 'X (Twitter)' },
+
+				
 			]);
 		};
 

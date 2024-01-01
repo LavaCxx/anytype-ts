@@ -512,7 +512,7 @@ const BlockEmbed = observer(class BlockEmbed extends React.Component<I.BlockComp
 		const { processor } = block.content;
 
 		let html = '';
-		let libs = [];
+		const libs = [];
 
 		switch (processor) {
 			case I.EmbedProcessor.Chart: {
@@ -577,6 +577,7 @@ const BlockEmbed = observer(class BlockEmbed extends React.Component<I.BlockComp
 				let text = this.text;
 
 				const sandbox = [ 'allow-scripts' ];
+
 				const allowSameOrigin = [ 
 					I.EmbedProcessor.Youtube, 
 					I.EmbedProcessor.Vimeo, 
@@ -585,9 +586,10 @@ const BlockEmbed = observer(class BlockEmbed extends React.Component<I.BlockComp
 					I.EmbedProcessor.Miro, 
 					I.EmbedProcessor.Figma,
 					I.EmbedProcessor.Twitter,
+					I.EmbedProcessor.Bilibili
 				].includes(processor);
 				const allowPresentation = [ I.EmbedProcessor.Youtube, I.EmbedProcessor.Vimeo ].includes(processor);
-				const allowEmbedUrl = [ I.EmbedProcessor.Youtube, I.EmbedProcessor.Vimeo, I.EmbedProcessor.GoogleMaps, I.EmbedProcessor.Miro, I.EmbedProcessor.Figma ].includes(processor);
+				const allowEmbedUrl = [ I.EmbedProcessor.Youtube, I.EmbedProcessor.Vimeo, I.EmbedProcessor.GoogleMaps, I.EmbedProcessor.Miro, I.EmbedProcessor.Figma, I.EmbedProcessor.Bilibili ].includes(processor);
 				const allowJs = [ I.EmbedProcessor.Chart ].includes(processor);
 				const allowPopup = [].includes(processor);
 				const allowResize = [ I.EmbedProcessor.Twitter ].includes(processor);
@@ -690,6 +692,8 @@ const BlockEmbed = observer(class BlockEmbed extends React.Component<I.BlockComp
 				});
 				break;
 			};
+
+
 		};
 	};
 

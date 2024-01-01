@@ -1,17 +1,18 @@
 import { I, UtilCommon } from 'Lib';
 import Constant from 'json/constant.json';
 
-const DOMAINS: any  = {};
+const DOMAINS: any = {};
 DOMAINS[I.EmbedProcessor.Youtube] = [ 'youtube.com', 'youtu.be' ];
 DOMAINS[I.EmbedProcessor.Vimeo] = [ 'vimeo.com' ];
 DOMAINS[I.EmbedProcessor.GoogleMaps] = [ 'google.[^\/]+/maps' ];
 DOMAINS[I.EmbedProcessor.Miro] = [ 'miro.com' ];
 DOMAINS[I.EmbedProcessor.Miro] = [ 'figma.com' ];
+DOMAINS[I.EmbedProcessor.Bilibili] = [ 'bilibili.com' ];
 
 class UtilEmbed {
 
 	getHtml (processor: I.EmbedProcessor, content: any): string {
-		const fn = UtilCommon.toCamelCase(`get-${I.EmbedProcessor[processor]}-html`)
+		const fn = UtilCommon.toCamelCase(`get-${I.EmbedProcessor[processor]}-html`);
 		return this[fn] ? this[fn](content) : '';
 	};
 
@@ -35,9 +36,13 @@ class UtilEmbed {
 		return `<iframe src="${content}" width="640" height="360" allowfullscreen></iframe>`;
 	};
 
+	getBilibiliHtml (content: string): string {
+		return `<iframe src="${content}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>`;
+	}
+
 	getProcessorByUrl (url: string): I.EmbedProcessor {
 		let p = null;
-		for (let i in DOMAINS) {
+		for (const i in DOMAINS) {
 			const reg = new RegExp(DOMAINS[i].join('|'), 'gi');
 			if (url.match(reg)) {
 				p = Number(i);
@@ -100,6 +105,12 @@ class UtilEmbed {
 			case I.EmbedProcessor.Figma: {
 				url = `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
 			};
+
+			case I.EmbedProcessor.Bilibili: {
+				const bvid = url.match(/(?<=video\/)BV([a-zA-Z0-9]+)/)?.[0] || '';
+				const p = url.match(/(?<=[?|&]p=)(\d+)/)?.[0] || 1;
+				url = `https://player.bilibili.com/player.html?bvid=${bvid}&p=${p}&high_quality=1&autoplay=0`;
+			}
 		};
 
 		return url;
